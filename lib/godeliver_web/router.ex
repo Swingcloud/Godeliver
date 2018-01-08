@@ -16,7 +16,14 @@ defmodule GodeliverWeb.Router do
   scope "/", GodeliverWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+
+    get  "/customers/",         CustomerController, :index
+    get  "/customers/new",      CustomerController, :new
+    get  "/customers/:id",      CustomerController, :show
+    get  "/customers/:id/edit", CustomerController, :edit
+    post "/customers",          CustomerController, :create
+    put  "/customers/:id",      CustomerController, :update
+    get  "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.

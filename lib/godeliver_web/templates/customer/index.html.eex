@@ -1,0 +1,12 @@
+<h1>Customer List</h1>
+
+<table class="table">
+  <%= for user <- @users do %>
+    <tr>
+      <td><%= render "user.html", user: @user %></td>
+      <td><%= link "View Detail", to: customer_path(@conn, :show, user.id) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link "Create User", to: customer_path(@conn, :new) %>
