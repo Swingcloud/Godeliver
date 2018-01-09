@@ -1,13 +1,28 @@
-defmodule Godeliver.Customers do
+defmodule Godeliver.Customer do
   @moduledoc """
-  The Customers context.
+  The Customer context.
   """
 
   import Ecto.Query, warn: false
   alias Godeliver.Repo
 
-  alias Godeliver.Customers.User
+  alias Godeliver.Customer.{User, Authentication}
 
+  alias Comeonin.Bcrypt
+
+  def authenticate_user(email, plain_text_password) do
+    query = from u in User, where: u.email == ^email
+    Repo.one(query)
+    |> check_password(plain_text_password)
+  end
+
+  defp check_password(nil, _), do: {:error, "Incorrect username or password."}
+  defp check_password(user, plain_text_password) do
+    case Bcrypt.checkpw(plain_text_password, user.password) do
+      true -> {:ok, user}
+      false -> {:error, "Incorrect username or password."}
+    end
+  end
   @doc """
   Returns the list of users.
 
@@ -18,7 +33,9 @@ defmodule Godeliver.Customers do
 
   """
   def list_users do
-    Repo.all(User)
+    User
+    |> Repo.all()
+    |> Repo.preload(:authentication)
   end
 
   @doc """
@@ -35,8 +52,11 @@ defmodule Godeliver.Customers do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
-
+  def get_user!(id) do
+    User
+    |> Repo.get!(id)
+    |> Repo.preload(:authentication)
+  end
   @doc """
   Creates a user.
 
@@ -52,6 +72,7 @@ defmodule Godeliver.Customers do
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
+    |> Ecto.Changeset.cast_assoc(:authentication, with: &Authentication.changeset/2)
     |> Repo.insert()
   end
 
@@ -70,6 +91,7 @@ defmodule Godeliver.Customers do
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
+    |> Ecto.Changeset.cast_assoc(:authentication, with: &Authentication.changeset/2)
     |> Repo.update()
   end
 

@@ -1,0 +1,35 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <div class="form-group">
+    <%= label f, :name, class: "control-label" %>
+    <%= text_input f, :name, calss: "from-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :phone_number, class: "control-label" %>
+    <%= text_input f, :phone_number, calss: "from-control" %>
+    <%= error_tag f, :phone_number %>
+  </div>
+
+  <div class="form-group">
+    <%= inputs_for f, :authentication, fn af -> %>
+      <%= label af, :email, class: "control-label" %>
+      <%= text_input af, :email, calss: "from-control" %>
+      <%= error_tag af, :email %>
+  </div>
+
+  <div class="form-group">
+      <%= label af, :password, class: "control-label" %>
+      <%= password_input af, :password, calss: "from-control" %>
+      <%= error_tag af, :password %>
+  </div>
+
+  <div class="form-group">
+      <%= label af, :password_confirmation, class: "control-label" %>
+      <%= password_input af, :password_confirmation, calss: "from-control" %>
+      <%= error_tag af, :password_confirmation %>
+    <% end %>
+  </div>
+
+  <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>

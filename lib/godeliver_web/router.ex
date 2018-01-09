@@ -17,12 +17,12 @@ defmodule GodeliverWeb.Router do
     pipe_through :browser # Use the default browser stack
 
 
-    get  "/customers/",         CustomerController, :index
-    get  "/customers/new",      CustomerController, :new
-    get  "/customers/:id",      CustomerController, :show
-    get  "/customers/:id/edit", CustomerController, :edit
-    post "/customers",          CustomerController, :create
-    put  "/customers/:id",      CustomerController, :update
+    get  "/users/",         Customer.UserController, :index
+    get  "/users/new",      Customer.UserController, :new
+    get  "/users/:id",      Customer.UserController, :show
+    get  "/users/:id/edit", Customer.UserController, :edit
+    post "/users",          Customer.UserController, :create
+    put  "/users/:id",      Customer.UserController, :update
     get  "/", PageController, :index
   end
 
