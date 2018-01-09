@@ -17,6 +17,10 @@ config :godeliver, GodeliverWeb.Endpoint,
   pubsub: [name: Godeliver.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :godeliver, Godeliver.Customer.Guardian,
+  issuer: 'godeliver',
+  secret_key: "djy/P48678rVMiaH0ghWO3jbY1b1FGDVwCAstKIhLhBlVjAxanRZmzfTLq8OrERW"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
