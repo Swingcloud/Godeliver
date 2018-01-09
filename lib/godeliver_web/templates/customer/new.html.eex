@@ -1,15 +1,1 @@
-<%= form_for @changeset, customer_path(@conn, :create), fn f -> %>
-  <div class="form-group">
-    <label>
-      Email: <%= text_input f, :email %>
-    </label>
-  </div>
-
-  <div class="form-group">
-    <label>
-      Phone Number: <%= text_input f, :phone_number %>
-    </label>
-  </div>
-
-  <%= submit "Submit" %>
-<% end %>
+<%= render "form.html", changeset: @changeset, action: @action %>

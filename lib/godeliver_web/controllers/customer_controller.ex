@@ -15,7 +15,7 @@ defmodule GodeliverWeb.CustomerController do
 
   def new(conn, _params) do
     changeset = Customers.change_user(%User{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, action: customer_path(conn, :create))
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -27,14 +27,14 @@ defmodule GodeliverWeb.CustomerController do
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_flash(:error, "An error occured")
-        |> render "new.html", changeset: changeset
+        |> render("new.html", changeset: changeset, action: customer_path(conn, :create))
     end
   end
 
   def edit(conn, %{"id" => id}) do
     user = Customers.get_user!(id)
     changeset = Customers.change_user(user)
-    render(conn, "edit.html", changeset: changeset, user: user)
+    render(conn, "edit.html", changeset: changeset, action: customer_path(conn, :update, user.id), user: user)
   end
 
   def update(conn, %{"user" => user_params, "id" => id}) do
@@ -47,7 +47,7 @@ defmodule GodeliverWeb.CustomerController do
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_flash(:error, "An error occured")
-        |> render "edit.html", changeset: changeset, user: user
+        |> render("edit.html", changeset: changeset, action: customer_path(conn, :update, user.id), user: user)
     end
   end
 end

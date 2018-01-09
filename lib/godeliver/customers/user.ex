@@ -5,7 +5,7 @@ defmodule Godeliver.Customers.User do
 
 
   schema "users" do
-    field :email, :string
+    field :name, :string
     field :phone_number, :string
 
     timestamps()
@@ -14,8 +14,8 @@ defmodule Godeliver.Customers.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :phone_number])
-    |> validate_required([:email, :phone_number])
+    |> cast(attrs, [:name, :phone_number])
+    |> validate_required :phone_number
     # |> validate_length(:phone_number, count: 8)
   end
 end

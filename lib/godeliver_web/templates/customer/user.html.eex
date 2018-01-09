@@ -1,4 +1,4 @@
 <p>
-  Email:<b><%= @user.email %></b> (<%= @user.id %>)<br>
+  Name:<b><%= @user.name %></b> (<%= @user.id %>)<br>
   Phone Number: <%= @user.phone_number %>
 </p>
